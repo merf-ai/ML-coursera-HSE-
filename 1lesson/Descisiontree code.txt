@@ -1,0 +1,12 @@
+import pandas as pd
+from sklearn import tree
+import numpy as np
+data=pd.read_csv('/content/drive/MyDrive/Без названия/_ea07570741a3ec966e284208f588e50e_titanic(1).csv')
+model=tree.DecisionTreeClassifier()
+data1=data.loc[:, ["Pclass", "Fare", "Age", "Sex","Survived"]]
+data1=data1.dropna()
+Y=data1['Survived']
+data1["Sex"] = data1["Sex"].map({"male": 0, "female": 1})
+data1=data1.drop(columns='Survived')
+X=data1
+clf=model.fit(X,Y)

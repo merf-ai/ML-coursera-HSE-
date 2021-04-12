@@ -1,0 +1,24 @@
+import pandas as pd 
+import pandas as pd 
+from sklearn import linear_model
+from sklearn import metrics
+from sklearn import preprocessing
+import numpy as np 
+train=pd.read_csv('/content/_3abd237d917280ba0d83bfe6bd49776f_perceptron-train.csv',names=['1','2','3'])
+test=pd.read_csv('/content/_3abd237d917280ba0d83bfe6bd49776f_perceptron-test.csv',names=['1','2','3'])
+Ytest=test.loc[:, ['1']]
+Xtest=test.drop(columns=['1'])
+Ytrain=train.loc[:, ['1']]
+Xtrain=train.drop(columns=['1'])
+model1=linear_model.Perceptron(max_iter=5, tol=None,random_state=241)
+model1.fit(Xtrain,Ytrain)
+Pred1=model1.predict(Xtest)
+Accucary1=metrics.accuracy_score(Pred1,Ytest)
+scaler=preprocessing.StandardScaler()
+Xtrain_scaled=scaler.fit_transform(Xtrain)
+Xtest_scaled=scaler.transform(Xtest)
+model2=linear_model.Perceptron(max_iter=5, tol=None,random_state=241)
+model2.fit(Xtrain_scaled,Ytrain)
+Pred2=model2.predict(Xtest_scaled)
+Accucary2=metrics.accuracy_score(Pred2,Ytest)
+Accucary2-Accucary1
